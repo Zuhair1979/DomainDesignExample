@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: "filemanagement"
+
+
+csv:
+  file-path: ${CSV_FILE_PATH:D:\CodeChallenge\csvfolder\sample-input.csv}
+  separator: ${CSV_SEPARATOR:,}
+  columns: ${CSV_COL:4}
+  cachsize: ${CASH_SIZE:11}
+
+
+logging:
+  level:
+    root: INFO          # keep global level at INFO
+    org.springframework.web: DEBUG
+    org.springframework.http.converter: DEBUG
+    org.springframework.validation: DEBUG
+    org.springframework.web.servlet.mvc.method.annotation: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    feign.Logger: DEBUG
+    com.orchestration.metadata: DEBUG   # <== your own package
