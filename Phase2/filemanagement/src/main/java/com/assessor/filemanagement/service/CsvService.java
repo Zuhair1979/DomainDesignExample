@@ -50,7 +50,11 @@ public class CsvService implements PersonRepositoryDM {
 
     }
 
-
+/*
+1- get cache list
+2- get matched keys to apply LRU algorithm
+3- get persons object based on keys and retrieve it
+* */
     public List<Person> getAllByColor(String color) throws IOException {
         Map<Integer, Person> allData = csvClient.getPersonCach();
         if(allData==null)
@@ -79,6 +83,10 @@ public class CsvService implements PersonRepositoryDM {
                   ));
 */
     }
+    /*
+    * 1- get person
+    * 2- touch the cache and retirve the person
+    * */
 
     public Person getById(int id) throws IOException {
 
@@ -87,12 +95,12 @@ public class CsvService implements PersonRepositoryDM {
             throw new NullPointerException();
 
         System.out.println(allData);
-        Person returnedPerson = allData.get(id);
+        Person returnedPerson = allData.get(id); // retirve the person but not touching the cache
 
         if (returnedPerson == null)
             throw new PersonNotFoundException(id);
 
-        return allData.get(id);  // we  cach and reorder the element in cach list
+        return allData.get(id);  // we touch the cache and reorder the element in cach list
     }
 
     public boolean addNewPerson(Person person) throws IOException {
@@ -107,7 +115,7 @@ public class CsvService implements PersonRepositoryDM {
 
         try (FileWriter out = new FileWriter(csvConfiguration.filePath(), true)) {
             CSVPrinter printer = new CSVPrinter(out, csvFormat);
-            out.write(System.lineSeparator());
+            out.write(System.lineSeparator());// handle the case of the last line in csv has no return, so create new line then append
             printer.printRecord(person.getFirstName(),
                     person.getLastName(),
                     person.getAddress(),
@@ -118,7 +126,7 @@ public class CsvService implements PersonRepositoryDM {
             throw new RuntimeException(e);
         } finally {
             if (worteDone)
-                csvClient.refreshPersonCach();
+                csvClient.refreshPersonCach(); // touch the cache to make new element at cache list tail
         }
 
         // return worteDone;

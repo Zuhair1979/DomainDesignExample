@@ -12,7 +12,11 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
+/*
+*  1- get CSV env variable from YML file
+*  2- get lines from CSV file and cache it to personList
+*
+* */
 @Component
 @Profile("csv")
 public class CSVClient {
@@ -64,7 +68,7 @@ public class CSVClient {
     // this will be called from the Runner
     public Map<Integer, Person> createPersonCach() throws IOException {
         List<CSVRecord> recordList = getCsvRecord();
-        this.personList = new CSVCashList<>(csvConfiguration.cachsize());
+        this.personList = new CSVCashList<>(csvConfiguration.cachsize());// cache list LRU
         Integer i = 0;
         for (var record : recordList) {
 

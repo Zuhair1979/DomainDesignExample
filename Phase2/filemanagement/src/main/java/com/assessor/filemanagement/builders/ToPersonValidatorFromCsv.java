@@ -8,7 +8,10 @@ import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-
+/*
+build a Person object from CSVRecord , record retireved from CSV File
+it handle the line short length  in defending way
+* */
 @Component
 @Profile("csv")
 public class ToPersonValidatorFromCsv implements PersonBuilder<CSVRecord, Person> {

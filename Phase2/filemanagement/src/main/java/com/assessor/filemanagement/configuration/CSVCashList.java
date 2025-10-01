@@ -5,6 +5,12 @@ import org.springframework.context.annotation.Profile;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+/*
+* 1- create Cash list based on LRU Least Recently Used
+* 2- when person retrieved by GET or POST , this element will be at tail of this List so it can be retrieved
+* without iterating over the list
+* */
 @Profile("csv")
 public class CSVCashList<K,V> extends LinkedHashMap<K,V> {
 
