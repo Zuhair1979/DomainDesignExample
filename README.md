@@ -1,7 +1,7 @@
 # Code Challenge
 
 
-ech Stack
+Tech Stack
 
 - Java 17
 - Spring Boot 3.2+
