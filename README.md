@@ -1,5 +1,21 @@
 # Code Challenge
 
+
+ech Stack
+
+- Java 17
+- Spring Boot 3.2+
+- Spring Data JPA
+- PostgreSQL
+- Apache Commons CSV
+- Spring Profiles (`csv`, `postgres`)
+- REST API (via `@RestController`)
+- Maven
+
+
+
+
+
 1- install docker desktop
 
 2- run docker compose up -d in infra folder. this will run postgres container
@@ -55,4 +71,18 @@ spring:
 	"color": "BLAU",
 	"id": 1
 }
+
+11- Proper error handling with GlobalExceptionHandler
+
+12- com.assessor.filemanagement
+├── builder        // Person builders/validators
+├── controller     // REST API endpoints
+├── dto            // DTOs & error response
+├── entity         // Data models for CSV & DB
+├── exceptions     // Custom exception handling
+├── mappers        // Directional mappers
+├── repository     // JPA repository
+├── service        // Business logic layer
+└── configuration  // App configuration and caching
+
 
