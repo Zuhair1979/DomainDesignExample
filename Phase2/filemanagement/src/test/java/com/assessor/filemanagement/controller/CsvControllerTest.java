@@ -1,7 +1,7 @@
 package com.assessor.filemanagement.controller;
 
 import com.assessor.filemanagement.entity.Farbe;
-import com.assessor.filemanagement.entity.Person;
+import com.assessor.filemanagement.domain.Person;
 import com.assessor.filemanagement.exceptions.FileEmptyException;
 import com.assessor.filemanagement.service.CsvService;
 import org.junit.jupiter.api.Test;
@@ -11,7 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -19,14 +18,11 @@ import static org.mockito.ArgumentMatchers.any;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-
-import org.springframework.http.MediaType;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 

@@ -1,30 +1,28 @@
 package com.assessor.filemanagement.service;
 
 import com.assessor.filemanagement.CSVCommandLineRunner.CSVRunner;
-import com.assessor.filemanagement.builders.CSVPersonBuilder;
 import com.assessor.filemanagement.configuration.CSVClient;
 import com.assessor.filemanagement.configuration.CSVConfiguration;
-import com.assessor.filemanagement.entity.Person;
+import com.assessor.filemanagement.domain.Person;
+import com.assessor.filemanagement.domainport.PersonRepositoryDM;
 import com.assessor.filemanagement.exceptions.ColorNotFoundException;
 import com.assessor.filemanagement.exceptions.FileEmptyException;
 import com.assessor.filemanagement.exceptions.PersonNotFoundException;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
-import org.apache.commons.csv.CSVRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class CsvService {
+@Profile("csv")
+public class CsvService implements PersonRepositoryDM {
 
     private static final Logger log = LoggerFactory.getLogger(CSVRunner.class);
 

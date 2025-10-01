@@ -1,10 +1,11 @@
 package com.assessor.filemanagement.configuration;
 
-import com.assessor.filemanagement.builders.CSVPersonBuilder;
-import com.assessor.filemanagement.entity.Person;
+import com.assessor.filemanagement.builders.ToPersonValidatorFromCsv;
+import com.assessor.filemanagement.domain.Person;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
@@ -13,16 +14,17 @@ import java.util.List;
 import java.util.Map;
 
 @Component
+@Profile("csv")
 public class CSVClient {
 
 
-    private final CSVPersonBuilder personBuilder;
+    private final ToPersonValidatorFromCsv personBuilder;
     private final CSVConfiguration csvConfiguration;
     // main cach
     private Map<Integer, Person> personList;
 
     @Autowired
-    public CSVClient(CSVPersonBuilder personBuilder, CSVConfiguration csvConfiguration) {
+    public CSVClient(ToPersonValidatorFromCsv personBuilder, CSVConfiguration csvConfiguration) {
         this.personBuilder = personBuilder;
         this.csvConfiguration = csvConfiguration;
     }

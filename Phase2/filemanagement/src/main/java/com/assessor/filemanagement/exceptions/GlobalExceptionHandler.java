@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(CsvApiException.class)
-    public ResponseEntity<ErrorResponseDto> handelAllApiExceptions(CsvApiException csvApiException, HttpServletRequest web){
+    @ExceptionHandler(ApiException.class)
+    public ResponseEntity<ErrorResponseDto> handelAllApiExceptions(ApiException csvApiException, HttpServletRequest web){
 
         var responseBody=ErrorResponseDto.builder()
                 .apiPath(web.getRequestURI())

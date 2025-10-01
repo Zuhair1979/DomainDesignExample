@@ -1,7 +1,9 @@
 package com.assessor.filemanagement.controller;
 
+
 import com.assessor.filemanagement.domain.Person;
-import com.assessor.filemanagement.service.CsvService;
+import com.assessor.filemanagement.exceptions.PersonNotFoundException;
+import com.assessor.filemanagement.service.DataBaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
@@ -11,30 +13,35 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@Profile("csv")
-public class CsvController {
+@RequestMapping("/db/persons")
+@Profile("postgres")
+public class DataBaseController {
 
     @Autowired
-    CsvService csvService;
+    DataBaseService service;
 
-    @GetMapping("/persons")
+
+    @GetMapping
     public ResponseEntity<List<Person>> getPersons() throws IOException {
-        List<Person> list = csvService.getAllPersons();
-       /* if (list == null ) {
-            return ResponseEntity.noContent().build(); // 204
-        }*/
+        List<Person> list = service.getAllPersons();
+
         return ResponseEntity.ok(list);
     }
-    @GetMapping("/persons/color/{color}")
+
+    @GetMapping("/color/{color}")
     public ResponseEntity<List<Person>> getPersonByColor(@PathVariable String color) throws IOException {
-        return ResponseEntity.ok(csvService.getAllByColor(color));
+        return ResponseEntity.ok(service.getAllByColor(color));
     }
-    @GetMapping("/persons/{id}")
+
+    @GetMapping("/{id}")
     public ResponseEntity<Person> getPersonById(@PathVariable int id) throws IOException {
-        return ResponseEntity.ok(csvService.getById(id));
+        Person person = service.getById(id);
+
+        return ResponseEntity.ok(person);
     }
-    @PostMapping("/persons/new")
+
+    @PostMapping("/new")
     public boolean addNewPerson(@RequestBody Person person) throws IOException {
-        return csvService.addNewPerson(person);
+        return service.addNewPerson(person);
     }
 }

@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  
+
+  # PostgreSQL: stores person record we received from filemanagement service
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: dms
+      POSTGRES_PASSWORD: dms123
+      POSTGRES_DB: dmsdb
+    ports:
+      - "5432:5432"
+    healthcheck:
+      # NOTE: it's pg_isready (underscore), not pg-isready
+      test: ["CMD-SHELL", "pg_isready -U dms"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Kafka server to communicte all services togather
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.6.1
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports: ["2181:2181"]
+
+  kafka:
+    image: confluentinc/cp-kafka:7.6.1
+    depends_on: [zookeeper]
+    ports:
+      - "9092:9092"
+      - "9094:9094"
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENERS: PLAINTEXT://:9092,EXTERNAL://:9094
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,EXTERNAL://localhost:9094
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"

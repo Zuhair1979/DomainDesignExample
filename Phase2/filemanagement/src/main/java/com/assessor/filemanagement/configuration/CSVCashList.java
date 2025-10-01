@@ -1,10 +1,11 @@
 package com.assessor.filemanagement.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-
+@Profile("csv")
 public class CSVCashList<K,V> extends LinkedHashMap<K,V> {
 
    private int cashSize;

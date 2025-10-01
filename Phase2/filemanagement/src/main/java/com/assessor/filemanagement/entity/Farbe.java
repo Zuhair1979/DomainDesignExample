@@ -18,4 +18,13 @@ public enum Farbe {
         this.id = id;
     }
     public int id(){return id;}
+
+    public static Farbe fromStringIgnoreCase(String value) {
+        for (Farbe f : values()) {
+            if (f.name().equalsIgnoreCase(value)) {
+                return f;
+            }
+        }
+        return UNKNOWN;
+    }
 }

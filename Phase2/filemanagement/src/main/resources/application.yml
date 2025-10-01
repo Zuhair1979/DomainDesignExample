@@ -1,14 +1,43 @@
+# application.yml  (3 documents)
+
+---
 spring:
   application:
     name: "filemanagement"
+  profiles:
+    active: csv   # you can switch between profiles postgres , csv
 
 
+---
+spring:
+  config:
+    activate:
+      on-profile: csv
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+      - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
 csv:
-  file-path: ${CSV_FILE_PATH:D:\CodeChallenge\csvfolder\sample-input.csv}
+  # prefer forward slashes or escape backslashes
+  file-path: ${CSV_FILE_PATH:D:/CodeChallenge/csvfolder/sample-input.csv}
   separator: ${CSV_SEPARATOR:,}
   columns: ${CSV_COL:4}
   cachsize: ${CASH_SIZE:11}
 
+---
+spring:
+  config:
+    activate:
+      on-profile: postgres
+  datasource:
+    url: jdbc:postgresql://localhost:5432/persondb
+    username: person
+    password: person123123
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
 
 logging:
   level:
